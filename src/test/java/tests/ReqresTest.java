@@ -1,19 +1,16 @@
 package tests;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import objects.HH.VacanciesList;
 import objects.reqres.RegUser;
-import objects.reqres.ResourcesList;
+import objects.reqres.Resource;
 import objects.reqres.User;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 
-import static io.restassured.http.ContentType.JSON;
 import static java.net.HttpURLConnection.*;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -143,11 +140,11 @@ public class ReqresTest {
                 .statusCode(HTTP_OK)
                 .extract().body().asString();
 
-        ResourcesList resourcesList = new Gson().fromJson(body, ResourcesList.class);
-        String color = resourcesList.getItems().get(0).getData().getName();
+       Resource resource = new Gson().fromJson(body, Resource.class);
+        String color = resource.getData().getName();
+        System.out.println(color);
 
-        ResourcesList resourcesListWithExposed = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()
-                .fromJson(body, ResourcesList.class);
+        Assert.assertEquals(color, "fuchsia rose", "Color is not as expected!");
 
     }
 }

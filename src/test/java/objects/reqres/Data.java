@@ -1,6 +1,7 @@
 package objects.reqres;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 @lombok.Data
 public class Data {
@@ -12,6 +13,7 @@ public class Data {
     int year;
     @Expose
     String color;
-    String pantone_value;
+    @SerializedName("pantone_value")
+    String pantoneValue;
 
 }
